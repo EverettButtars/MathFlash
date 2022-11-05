@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/white"
+    tools:context=".MainActivity3">
+
+
+    <LinearLayout
+        android:id="@+id/choice_layout"
+        android:layout_width="357dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="126dp"
+            android:paddingLeft="72dp"
+            android:paddingTop="40dp"
+            android:text="Pick your Math"
+            android:textColor="#EF6C00"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.685"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.082" />
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF6200EE"
+            android:text="Addition"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/subtract"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF6200EE"
+            android:text="Subtraction"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/multiply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF6200EE"
+            android:text="Multiplication"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/divide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF6200EE"
+            android:text="Division"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/faction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF6200EE"
+            android:text="Fractions"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="150dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="166dp"
+            android:layout_marginBottom="132dp"
+            android:text="Back"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.258"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+
