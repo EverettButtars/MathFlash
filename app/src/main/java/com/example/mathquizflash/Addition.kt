@@ -5,20 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class MainActivity : AppCompatActivity() {
+class Addition : AppCompatActivity() {
 
-    lateinit var button: Button
+    lateinit var back: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.addition)
 
-        button = findViewById(R.id.button)
-
-        button.setOnClickListener {
-            val intent = Intent(this, MainActivity2::class.java)
+        back = findViewById(R.id.back)
+        back.setOnClickListener {
+            val intent = Intent(this, ChooseMath::class.java)
             // start your next activity
             startActivity(intent)
         }
-
     }
 }

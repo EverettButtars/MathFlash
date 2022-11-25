@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="24dp"
     android:background="@color/white"
-    tools:context=".MainActivity5">
+    tools:context=".Division">
 
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:layout_height="75dp"
             android:paddingLeft="120dp"
             android:paddingTop="15dp"
-            android:text="20 - 6"
+            android:text="20 / 4"
             android:textColor="#EF6C00"
             android:textSize="45sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -39,7 +39,7 @@
             android:layout_height="60dp"
             android:layout_marginLeft="120dp"
             android:backgroundTint="#FF6200EE"
-            android:text="30"
+            android:text="5"
             android:textColor="@color/white"
             android:textSize="30sp" />
 
@@ -59,7 +59,7 @@
             android:layout_height="60dp"
             android:layout_marginLeft="120dp"
             android:backgroundTint="#FF6200EE"
-            android:text="88"
+            android:text="120"
             android:textColor="@color/white"
             android:textSize="30sp" />
 
@@ -113,3 +113,4 @@
 
 
 </RelativeLayout>
+
