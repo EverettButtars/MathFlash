@@ -22,7 +22,7 @@
             android:id="@+id/question"
             android:layout_width="350dp"
             android:layout_height="75dp"
-            android:paddingLeft="107dp"
+            android:paddingLeft="100dp"
             android:paddingTop="15dp"
             android:text="23 + 65"
             android:textColor="#EF6C00"

@@ -20,10 +20,10 @@
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="126dp"
-            android:paddingLeft="72dp"
+            android:layout_height="130dp"
+            android:paddingStart="50dp"
             android:paddingTop="40dp"
-            android:text="Pick your Math"
+            android:text="@string/select_an_operation"
             android:textColor="#EF6C00"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,40 +38,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FF6200EE"
-            android:text="Addition"
-            android:textColor="@color/white" />
+            android:text="@string/addition"
+            android:textColor="@color/white"
+            android:onClick="buttonClicked"
+            />
 
         <Button
             android:id="@+id/subtract"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FF6200EE"
-            android:text="Subtraction"
-            android:textColor="@color/white" />
+            android:text="@string/subtraction"
+            android:textColor="@color/white"
+            android:onClick="buttonClicked"
+            />
 
         <Button
             android:id="@+id/multiply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FF6200EE"
-            android:text="Multiplication"
-            android:textColor="@color/white" />
+            android:text="@string/multiplication"
+            android:textColor="@color/white"
+            android:onClick="buttonClicked"
+            />
 
         <Button
             android:id="@+id/divide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FF6200EE"
-            android:text="Division"
-            android:textColor="@color/white" />
+            android:text="@string/division"
+            android:textColor="@color/white"
+            android:onClick="buttonClicked"
+            />
 
         <Button
             android:id="@+id/fraction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FF6200EE"
-            android:text="Fractions"
-            android:textColor="@color/white" />
+            android:text="@string/fractions"
+            android:textColor="@color/white"
+            android:onClick="buttonClicked"
+            />
 
         <Button
             android:id="@+id/back"
@@ -81,7 +91,7 @@
             android:layout_marginStart="100dp"
             android:layout_marginEnd="166dp"
             android:layout_marginBottom="132dp"
-            android:text="Back"
+            android:text="@string/back"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

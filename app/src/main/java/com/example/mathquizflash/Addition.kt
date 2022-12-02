@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 
 class Addition : AppCompatActivity(),View.OnClickListener {
     lateinit var questionTextView: TextView
@@ -48,10 +49,10 @@ class Addition : AppCompatActivity(),View.OnClickListener {
 
     }
 override fun onClick( view: View) {
-        first.setBackgroundColor(Color.parseColor("#FF3700B3"))
-        second.setBackgroundColor(Color.parseColor("#FF3700B3"))
-        third.setBackgroundColor(Color.parseColor("#FF3700B3"))
-        fourth.setBackgroundColor(Color.parseColor("#FF3700B3"))
+        first.setBackgroundColor(Color.parseColor("#2240E1"))
+        second.setBackgroundColor(Color.parseColor("#2240E1"))
+        third.setBackgroundColor(Color.parseColor("#2240E1"))
+        fourth.setBackgroundColor(Color.parseColor("#2240E1"))
 
 
         first.setTextColor(Color.WHITE)
@@ -63,12 +64,18 @@ override fun onClick( view: View) {
         if (clickedButton.id == R.id.submit){
             if ( selectedAnswer == AdditionQuestionsAnswers.correctAnswers[currentQuestionIndex]){
                 score ++
+                // Message if the question was correct
+                val toast = Toast.makeText(applicationContext, "Correct!", Toast.LENGTH_SHORT)
+                toast.show()
+            } else {
+                val toast = Toast.makeText(applicationContext, "Incorrect", Toast.LENGTH_SHORT)
+                toast.show()
             }
             currentQuestionIndex ++
             loadNewQuestion()
         }else{
             selectedAnswer = clickedButton.text.toString()
-            clickedButton.setBackgroundColor(Color.parseColor("#800020"))
+            clickedButton.setBackgroundColor(Color.parseColor("#DA9022"))
             clickedButton.setTextColor(Color.WHITE)
 
         }
