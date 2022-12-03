@@ -27,27 +27,31 @@ class ChooseMath : AppCompatActivity() {
 
         add = findViewById(R.id.add)
         add.setOnClickListener {
-            val intent = Intent(this, Addition::class.java)
+            val intent = Intent(this@ChooseMath, Addition::class.java)
+            intent.putExtra("Operation","add");
             // start your next activity
             startActivity(intent)
         }
 
         subtract = findViewById(R.id.subtract)
         subtract.setOnClickListener {
-            val intent = Intent(this, Subtraction::class.java)
+            val intent = Intent(this@ChooseMath, Addition::class.java)
+            intent.putExtra("Operation","subtract");
             // start your next activity
             startActivity(intent)
         }
 
         multiply = findViewById(R.id.multiply)
         multiply.setOnClickListener {
-            val intent = Intent(this, Multiplication::class.java)
+            val intent = Intent(this@ChooseMath, Addition::class.java)
+            intent.putExtra("Operation","multiply");
             // start your next activity
             startActivity(intent)
         }
         divide = findViewById(R.id.divide)
         divide.setOnClickListener {
-            val intent = Intent(this, Division::class.java)
+            val intent = Intent(this@ChooseMath, Addition::class.java)
+            intent.putExtra("Operation","divide");
             // start your next activity
             startActivity(intent)
         }
@@ -55,6 +59,7 @@ class ChooseMath : AppCompatActivity() {
         fraction = findViewById(R.id.fraction)
         fraction.setOnClickListener {
             val intent = Intent(this, Division2::class.java)
+            intent.putExtra("Operation","fraction");
             // start your next activity
             startActivity(intent)
         }

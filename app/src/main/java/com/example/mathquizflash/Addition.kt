@@ -1,30 +1,37 @@
 package com.example.mathquizflash
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
-import android.view.View
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 
 class Addition : AppCompatActivity(),View.OnClickListener {
-    lateinit var questionTextView: TextView
+    private lateinit var questionTextView: TextView
     lateinit var first: TextView
     lateinit var second: TextView
     lateinit var third: TextView
     lateinit var fourth: TextView
     lateinit var submit:Button
-    var score = 0
-    var answer = 0
-    var totalQuestion:Int = AdditionQuestionsAnswers.question.size
-    var currentQuestionIndex = 0
-    var selectedAnswer = ""
+    private var score = 0
+    private var answer = 0
+    private var totalQuestion:Int = AdditionQuestionsAnswers.question.size
+    private var currentQuestionIndex = 0
+    private var selectedAnswer = ""
     lateinit var back: Button
+
+    private val min = 0 // Minimum number to start questions
+    private val max = 20
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Receive value from choose math
+        val operation=intent.getStringExtra("Operation").toString()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.addition)
         questionTextView = findViewById(R.id.question)
@@ -41,7 +48,7 @@ class Addition : AppCompatActivity(),View.OnClickListener {
         fourth.setOnClickListener(this)
         submit.setOnClickListener(this)
 
-        loadNewQuestion()
+        loadNewQuestion(operation)
 
         back.setOnClickListener {
             val intent = Intent(this, ChooseMath::class.java)
@@ -73,8 +80,9 @@ override fun onClick( view: View) {
                 toast.show()
             }
             currentQuestionIndex ++
-            answer = loadNewQuestion()
-        }else{
+            val operation=intent.getStringExtra("Operation").toString()
+            answer = loadNewQuestion(operation)
+        } else{
             selectedAnswer = clickedButton.text.toString()
             clickedButton.setBackgroundColor(Color.parseColor("#DA9022"))
             clickedButton.setTextColor(Color.WHITE)
@@ -82,37 +90,74 @@ override fun onClick( view: View) {
         }
 
     }
-    private fun loadNewQuestion() : Int{
+    @SuppressLint("SetTextI18n")
+    private fun loadNewQuestion(operation:String) : Int{
         if (currentQuestionIndex == totalQuestion){
-            finishQuiz()
+            finishQuiz(operation)
             return 0
         }
 
-        val min = 0
-        val max = 10
         val firstPart = (min..max).random()
         val secondPart = (min..max).random()
-        answer = firstPart + secondPart
-        var randomAnswer1 = (min..max + max).random()
-        var randomAnswer2 = (min..max + max).random()
-        var randomAnswer3 = (min..max + max).random()
-        while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
-            randomAnswer1 = (min..max + max).random()
-            randomAnswer2 = (min..max + max).random()
-            randomAnswer3 = (min..max + max).random()
+        var randomAnswer1 = 0
+        var randomAnswer2 = 0
+        var randomAnswer3 = 0
+        // Depends on operation
+
+
+        if (operation == "add"){
+            questionTextView.text = "$firstPart + $secondPart"
+            answer = firstPart + secondPart
+            while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
+                randomAnswer1 = (min + min..max + max).random()
+                randomAnswer2 = (min + min..max + max).random()
+                randomAnswer3 = (min + min..max + max).random()
+            }
         }
+        else if (operation == "subtract"){
+            questionTextView.text = "$firstPart - $secondPart"
+            answer = firstPart - secondPart
+            while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
+                randomAnswer1 = (-max..max).random()
+                randomAnswer2 = (-max..max).random()
+                randomAnswer3 = (-max..max).random()
+            }
+        } else if (operation == "multiply") {
+            questionTextView.text = "$firstPart x $secondPart"
+            answer = firstPart * secondPart
+            while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
+                randomAnswer1 = (min..max*max).random()
+                randomAnswer2 = (min..max*max).random()
+                randomAnswer3 = (min..max*max).random()
+            }
+        } else if (operation == "divide") {
+            questionTextView.text = "$firstPart / $secondPart"
+            answer = firstPart / secondPart
+            while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
+                randomAnswer1 = (min..max).random()
+                randomAnswer2 = (min..max).random()
+                randomAnswer3 = (min..max).random()
+            }
+        }
+        else {
+            questionTextView.text = "$firstPart ? $secondPart"
+            val toast = Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+
+
         val questions = listOf(answer, randomAnswer1, randomAnswer2, randomAnswer3).toMutableList()
         questions.shuffle()
-        questionTextView.text = "${firstPart.toString()} + ${secondPart.toString()}"
+
         first.text = questions[0].toString()
         second.text = questions[1].toString()
         third.text = questions[2].toString()
         fourth.text = questions[3].toString()
         return answer
     }
-    private fun finishQuiz(){
-        var passStatus = ""
-        passStatus = if (score > totalQuestion * 0.60){
+    private fun finishQuiz(operation:String){
+
+        val passStatus = if (score > totalQuestion * 0.60){
             "Passed!"
         }else{
             "Failed"
@@ -121,8 +166,8 @@ override fun onClick( view: View) {
             val alertDialogBuilder = AlertDialog.Builder(this)
             alertDialogBuilder.setTitle(passStatus)
             alertDialogBuilder.setMessage("Score is $score out of $totalQuestion")
-            alertDialogBuilder.setPositiveButton("Restart") { dialogInterface: DialogInterface, i: Int ->
-                restartQuiz()
+            alertDialogBuilder.setPositiveButton("Restart") { _: DialogInterface, _: Int ->
+                restartQuiz(operation)
             }
             alertDialogBuilder.setCancelable(false)
 
@@ -131,10 +176,10 @@ override fun onClick( view: View) {
         createDialog()
     }
 
-    private fun restartQuiz() {
+    private fun restartQuiz(operation:String) {
         score = 0
         currentQuestionIndex = 0
-        loadNewQuestion()
+        loadNewQuestion(operation)
     }
 
 }
