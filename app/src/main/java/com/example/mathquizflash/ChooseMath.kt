@@ -58,7 +58,7 @@ class ChooseMath : AppCompatActivity() {
 
         fraction = findViewById(R.id.fraction)
         fraction.setOnClickListener {
-            val intent = Intent(this, Division2::class.java)
+            val intent = Intent(this@ChooseMath, Addition::class.java)
             intent.putExtra("Operation","fraction");
             // start your next activity
             startActivity(intent)

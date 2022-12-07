@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -21,12 +22,12 @@ class Addition : AppCompatActivity(),View.OnClickListener {
     lateinit var submit:Button
     private var score = 0
     private var answer = 0
-    private var totalQuestion:Int = AdditionQuestionsAnswers.question.size
+    private var totalQuestion:Int = 10
     private var currentQuestionIndex = 0
     private var selectedAnswer = ""
     lateinit var back: Button
 
-    private val min = 0 // Minimum number to start questions
+    private val min = 1 // Minimum number to start questions
     private val max = 20
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,47 +100,40 @@ override fun onClick( view: View) {
 
         val firstPart = (min..max).random()
         val secondPart = (min..max).random()
-        var randomAnswer1 = 0
-        var randomAnswer2 = 0
-        var randomAnswer3 = 0
+
+        var randomAnswer1 = 0; var randomAnswer2 = 0; var randomAnswer3 = 0
+
+        do {
+            randomAnswer1 = (min + min..max + max).random()
+            randomAnswer2 = (min + min..max + max).random()
+            randomAnswer3 = (min + min..max + max).random()
+        } while (checkDupeAnswer(randomAnswer1, randomAnswer2, randomAnswer3))
         // Depends on operation
 
 
         if (operation == "add"){
             questionTextView.text = "$firstPart + $secondPart"
             answer = firstPart + secondPart
-            while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
-                randomAnswer1 = (min + min..max + max).random()
-                randomAnswer2 = (min + min..max + max).random()
-                randomAnswer3 = (min + min..max + max).random()
-            }
         }
         else if (operation == "subtract"){
             questionTextView.text = "$firstPart - $secondPart"
             answer = firstPart - secondPart
-            while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
-                randomAnswer1 = (-max..max).random()
-                randomAnswer2 = (-max..max).random()
-                randomAnswer3 = (-max..max).random()
-            }
+
         } else if (operation == "multiply") {
             questionTextView.text = "$firstPart x $secondPart"
             answer = firstPart * secondPart
-            while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
-                randomAnswer1 = (min..max*max).random()
-                randomAnswer2 = (min..max*max).random()
-                randomAnswer3 = (min..max*max).random()
-            }
+
         } else if (operation == "divide") {
             questionTextView.text = "$firstPart / $secondPart"
             answer = firstPart / secondPart
-            while ((randomAnswer1 == randomAnswer2) or (randomAnswer1 == randomAnswer3) or (randomAnswer1 == answer) or (randomAnswer2 == answer) or (randomAnswer3 == answer) or (randomAnswer2 == randomAnswer3)) {
-                randomAnswer1 = (min..max).random()
-                randomAnswer2 = (min..max).random()
-                randomAnswer3 = (min..max).random()
-            }
+
         }
-        else {
+        else if (operation == "fraction") {
+            questionTextView.setText(
+                Html.fromHtml("<sup>$firstPart</sup>/<sub>$secondPart</sub>"))
+            answer = firstPart / secondPart
+
+        } else {
             questionTextView.text = "$firstPart ? $secondPart"
             val toast = Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT)
             toast.show()
@@ -154,6 +148,14 @@ override fun onClick( view: View) {
         third.text = questions[2].toString()
         fourth.text = questions[3].toString()
         return answer
+    }
+
+    private fun checkDupeAnswer(an1:Int, an2:Int, an3:Int ): Boolean {
+        when(an1)
+        {
+            an2, an3 -> (return true)
+            else -> return false
+        }
     }
     private fun finishQuiz(operation:String){
 
